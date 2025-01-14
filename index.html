@@ -14,47 +14,23 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-    // React.createElement("태그", 속성, "텍스트"); -> 잘 사용하지 않음
-    const root = document.getElementById("root");
+    const DOM = ReactDOM.createRoot(document.getElementById("root"))
 
-     /* const h3 = React.createElement("h3", {
-        onMouseEnter: () => console.log('mouse enter'),
-    }, "안녕하세요~^_^"); */
-
-    // JSX 형식으로 적은 코드 (babel을 이용해 ReactJs형식으로 변환해서 브라우저에 반영됨)
-    //const Title = () => (<h3 id="title" onMouseEnter={()=>console.log("mouse enter")}>Hello I'm a h3 title</h3>);
-
-    // 컴포넌트화 (첫글자는 무조건 대문자. 안그러면 태그로 잘못읽힐수도 있음)
-    function Title() {
-        return (<h3 id="title" onMouseEnter={()=>console.log("mouse enter")}>Hello I'm a h3 title</h3>);
-    }
-
-    /* const button = React.createElement("button", { 
-        type: "button", 
-        onClick: () => console.log("im clicked"),
-        style : {
-            backgroundColor: "tomato",
-            color: "#fff",
+    function App() {
+        let [counter, setCounter] = React.useState(0);
+        const onClick = () => {
+            setCounter(counter++);
         }
-    },
-        "버튼 텍스트가 들어가용"
-    ); */
-   
-    // 컴포넌트화 (첫글자는 무조건 대문자. 안그러면 태그로 잘못읽힐수도 있음)
-    const Button = () => (
-        <button 
-            style={{
-                backgroundColor: "tomato",
-            }} 
-            onClick={()=>console.log("im clicked")}>Click me</button>);
+       
+        return (
+            <div>
+                <h3>Total clicks: {counter}</h3>
+                <button onClick={onClick}>Click me</button>
+            </div>
+        )
+    };
 
-    //ReactDOM.createRoot(root).render(span); 
-    //const container = React.createElement("div", null, [Title, Button]);
-    const Container = () => (<div>
-            <Title />
-            <Button />
-        </div>);
-    ReactDOM.createRoot(root).render(<Container/>);
+    DOM.render(<App />)
 </script>
 
 </html>
