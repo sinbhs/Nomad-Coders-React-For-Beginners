@@ -16,18 +16,33 @@
 <script type="text/babel">
     const DOM = ReactDOM.createRoot(document.getElementById("root"))
 
+    // JSX 문법을 사용 중이기 때문에 "for > htmlFor"
     function App() {
-        let [counter, setCounter] = React.useState(0);
-        const onClick = () => {
-            //setCounter(counter + 1);
-
-            // 현재 값 기준으로 하고 싶을 땐 아래와 같은 방법이 더 선호됨
-            setCounter((current) => current + 1);
+        const [amount, setAmount] = React.useState(0);
+        const [flipped, setFlipped] = React.useState(false);
+        const onChange = (event) => {
+            // console.log("somebody wrote", event.target.value);
+            setAmount(event.target.value);
+        };
+        const reset = () => setAmount(0);
+        const onFlip = () => {
+            reset();
+            setFlipped((current) => !current)
         };
         return (
             <div>
-                <h3>Total clicks: {counter}</h3>
-                <button onClick={onClick}>Click me</button>
+                <div>
+                    <h1>Super Converter</h1>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input value={flipped ? amount * 60 : amount} onChange={onChange} id="minutes" placeholder="Minutes" type="number" disabled={flipped === true}/>
+                </div>
+
+                <div>
+                    <label htmlFor="hours">Hours</label>
+                    <input value={flipped ? amount : Math.round(amount/60)} onChange={onChange} id="hours" placeholder="Hours" type="number" disabled={flipped === false}/>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onFlip}>Flip</button>
+                </div>
             </div>
         );
     };
