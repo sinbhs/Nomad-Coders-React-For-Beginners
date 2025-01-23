@@ -19,15 +19,17 @@
     function App() {
         let [counter, setCounter] = React.useState(0);
         const onClick = () => {
-            setCounter(counter++);
-        }
-       
+            //setCounter(counter + 1);
+
+            // 현재 값 기준으로 하고 싶을 땐 아래와 같은 방법이 더 선호됨
+            setCounter((current) => current + 1);
+        };
         return (
             <div>
                 <h3>Total clicks: {counter}</h3>
                 <button onClick={onClick}>Click me</button>
             </div>
-        )
+        );
     };
 
     DOM.render(<App />)
