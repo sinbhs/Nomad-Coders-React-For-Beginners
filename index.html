@@ -17,7 +17,7 @@
 <script type="text/babel">
     const DOM = ReactDOM.createRoot(document.getElementById("root"));
 
-    function Btn({text, fontSize}) {
+    function Btn({text, fontSize = 20}) {
         return (
             <button
                 style={{
@@ -31,15 +31,15 @@
         );
     }
     Btn.propTypes = {
-        text: PropTypes.string,
-        fontSize: PropTypes.number
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number,
     }
 
     function App() {
         return (
             <div>
                 <Btn text="Save Changes" fontSize={18} />
-                <Btn text="Confirm Changes" fontSize={14} />
+                <Btn text="Confirm Changes" />
             </div>
         );
     };
