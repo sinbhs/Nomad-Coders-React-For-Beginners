@@ -1,36 +1,26 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => setValue((prev) => prev + 1);
-  const onChange = (event) => setKeyword(event.target.value);
+  const [showing, setShowing] = useState(false);
 
-  useEffect(() => {
-    console.log('I run only once.');
-  }, []);
-  // 빈 배열은 감시할 대상이 없으므로 딱 한번만 실행됨.
+  function Hello() {
+    function byeFn() {
+      console.log("bye :(");
+    }
+    function hiFn() {
+      console.log("created :)");
 
-  useEffect(() => {
-    console.log("I run when 'keyword' changes.");
-  }, [keyword]);
-  // 'keyword'가 변화할 때 코드를 실행할 거라고 react.js에게 알려주는 것
-
-  useEffect(() => {
-    console.log("I run when 'counter' changes.");
-  }, [counter]);
-  // 'counter'가 변화할 때 코드를 실행할 거라고 react.js에게 알려주는 것
+      return byeFn;
+    };
+    useEffect(hiFn, []);
+    return <h1>Hello</h1>;
+  }
   
-  useEffect(() => {
-    console.log("I run when keyword & counter changes.");
-  }, [keyword, counter]);
-  // 'keyword', 'counter'가 변화할 때 코드를 실행할 거라고 react.js에게 알려주는 것
-  
+  const onClick = () => setShowing((prev) => !prev);
   return (
     <div>
-      <input onChange={onChange} type="text" placeholder="Search here..." value={keyword}></input>
-      <h1>{counter}</h1>
-      <button onClick={onClick}>click me</button>
+      {showing ? <Hello/> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
     </div>
   );
 }
